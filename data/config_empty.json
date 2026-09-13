@@ -1,0 +1,18 @@
+{
+  "class_name": "班级名称",
+  "students": [],
+  "logs": [],
+  "quick_actions": {
+    "rewards": [
+      {"text": "+1 表现良好", "points": 1, "reason": "表现良好"},
+      {"text": "+2 积极发言", "points": 2, "reason": "积极发言"},
+      {"text": "+3 作业优秀", "points": 3, "reason": "作业优秀"},
+      {"text": "+5 重大贡献", "points": 5, "reason": "重大贡献"}
+    ],
+    "punishments": [
+      {"text": "-1 小失误", "points": -1, "reason": "小失误"},
+      {"text": "-2 未交作业", "points": -2, "reason": "未交作业"},
+      {"text": "-3 课堂违纪", "points": -3, "reason": "课堂违纪"}
+    ]
+  }
+}

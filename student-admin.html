@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生管理员后台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2d3e50 0%, #1e2a38 100%);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        
+        .sidebar-logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            background: #151e28;
+            border-bottom: 1px solid #2d3e50;
+        }
+        
+        .sidebar-logo span {
+            font-size: 22px;
+            margin-right: 10px;
+        }
+        
+        .sidebar-logo p {
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .sidebar-section {
+            padding: 10px 0 5px;
+        }
+        
+        .sidebar-section-title {
+            color: #6b7b8d;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 6px 15px;
+            text-transform: uppercase;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: #b8c7d9;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background: #2d3e50;
+            color: white;
+        }
+        
+        .nav-item.active {
+            background: #2d3e50;
+            color: #1a8cff;
+            border-left-color: #1a8cff;
+        }
+        
+        .nav-item span {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            margin-left: 200px;
+            min-height: 100vh;
+        }
+        
+        /* 顶部栏 */
+        .topbar {
+            height: 50px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .topbar h1 {
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .topbar-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .current-time {
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #f5f7fa;
+            border-radius: 20px;
+        }
+        
+        .user-info .role-badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .role-badge.student-admin {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .logout-btn {
+            padding: 6px 12px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+        
+        /* 页面内容 */
+        .page-content {
+            padding: 20px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* 表格样式 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+        
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #229954;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+        
+        .btn-info {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-info:hover {
+            background: #2980b9;
+        }
+        
+        /* 提示框 */
+        .alert {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+        
+        .alert-info {
+            background: #e8f4fd;
+            border-left: 3px solid #3498db;
+            color: #2c3e50;
+        }
+        
+        .alert-warning {
+            background: #fff9e6;
+            border-left: 3px solid #f39c12;
+            color: #2c3e50;
+        }
+        
+        /* 提示信息 */
+        .toast {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #27ae60;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+            font-size: 13px;
+        }
+        
+        .toast.error {
+            background: #e74c3c;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(350px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(350px); opacity: 0; }
+        }
+        
+        /* 操作按钮组 */
+        .action-group {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 5px 10px;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+        
+        /* 选择学生 */
+        .select-student {
+            background: #ebf5fb;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 12px 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .select-student.hidden {
+            display: none;
+        }
+        
+        .select-student label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .select-student select {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            min-width: 180px;
+        }
+        
+        .select-student select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        /* 快捷操作 */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quick-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-btn:hover {
+            transform: scale(1.03);
+        }
+        
+        .quick-btn.reward {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+        }
+        
+        .quick-btn.punish {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+        
+        /* 日志样式 */
+        .log-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .log-item:last-child {
+            border-bottom: none;
+        }
+        
+        .log-time {
+            color: #95a5a6;
+        }
+        
+        .log-student {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .log-reason {
+            color: #7f8c8d;
+        }
+        
+        .log-points.positive { color: #27ae60; font-weight: bold; }
+        .log-points.negative { color: #e74c3c; font-weight: bold; }
+        
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: #95a5a6;
+            font-size: 13px;
+        }
+        
+        .empty-state .icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <span>📚</span>
+            <p>学生管理员</p>
+        </div>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">主要功能</div>
+            <a href="#students" class="nav-item active" data-page="students">
+                <span>👥</span> 学生列表
+            </a>
+            <a href="#reward" class="nav-item" data-page="reward">
+                <span>📝</span> 加减分操作
+            </a>
+        </div>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">记录查看</div>
+            <a href="#logs" class="nav-item" data-page="logs">
+                <span>📋</span> 操作日志
+            </a>
+        </div>
+    </div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- 顶部栏 -->
+        <div class="topbar">
+            <h1 id="page-title">👥 学生列表</h1>
+            <div class="topbar-right">
+                <span class="current-time" id="current-time"></span>
+                <div class="user-info">
+                    <span id="current-username">👤 学生</span>
+                    <span class="role-badge student-admin" id="current-role">管理员</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">退出登录</button>
+            </div>
+        </div>
+        
+        <!-- 页面内容 -->
+        <div class="page-content">
+            <!-- 学生列表 -->
+            <div id="students-page" class="page active">
+                <div class="alert alert-warning">
+                    <strong>⚠️ 提示：</strong>您拥有学生管理权限，可以对其他同学进行加分或减分操作。
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">📋 班级学生列表</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>积分</th>
+                                <th>奖励</th>
+                                <th>惩罚</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 加减分操作 -->
+            <div id="reward-page" class="page">
+                <div class="select-student" id="selected-student-display">
+                    <label>👤 当前选中：</label>
+                    <select id="student-select">
+                        <option value="">-- 请选择学生 --</option>
+                    </select>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">🎁 快捷奖励</div>
+                    <div class="quick-actions" id="reward-actions"></div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">⚠️ 快捷惩罚</div>
+                    <div class="quick-actions" id="punish-actions"></div>
+                </div>
+            </div>
+            
+            <!-- 操作日志 -->
+            <div id="logs-page" class="page">
+                <div class="card">
+                    <div class="card-title">📋 操作记录</div>
+                    <div id="logs-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 全局数据
+        let config = {
+            class_name: "三年二班",
+            students: [],
+            logs: [],
+            quick_actions: {
+                rewards: [
+                    {text: "+1 表现良好", points: 1, reason: "表现良好"},
+                    {text: "+2 积极发言", points: 2, reason: "积极发言"},
+                    {text: "+3 作业优秀", points: 3, reason: "作业优秀"},
+                    {text: "+5 重大贡献", points: 5, reason: "重大贡献"}
+                ],
+                punishments: [
+                    {text: "-1 小失误", points: -1, reason: "小失误"},
+                    {text: "-2 未交作业", points: -2, reason: "未交作业"},
+                    {text: "-3 课堂违纪", points: -3, reason: "课堂违纪"}
+                ]
+            }
+        };
+        
+        let currentUser = null;
+        let selectedStudentId = null;
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            loadConfig();
+            setupNavigation();
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+        
+        // 检查登录状态
+        function checkAuth() {
+            const user = localStorage.getItem('currentUser');
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            currentUser = JSON.parse(user);
+            
+            // 检查是否有管理员权限
+            const userRole = localStorage.getItem('userRole');
+            if (!userRole || (userRole !== 'teacher' && userRole !== 'admin')) {
+                // 检查是否是学生管理员（由教师授予）
+                const students = config.students || [];
+                const student = students.find(s => s.name === currentUser.username);
+                if (!student || !student.is_admin) {
+                    alert('您没有管理员权限，请联系教师授予权限');
+                    window.location.href = 'index.html';
+                    return;
+                }
+            }
+            
+            document.getElementById('current-username').textContent = '👤 ' + currentUser.username;
+            
+            const roleBadge = document.getElementById('current-role');
+            if (userRole === 'teacher') {
+                roleBadge.textContent = '教师';
+                roleBadge.className = 'role-badge student-admin';
+                roleBadge.style.background = '#e8f5e9';
+                roleBadge.style.color = '#27ae60';
+            } else {
+                roleBadge.textContent = '学生管理员';
+                roleBadge.className = 'role-badge student-admin';
+            }
+        }
+        
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // 加载配置
+        function loadConfig() {
+            const saved = localStorage.getItem('classConfig');
+            if (saved) {
+                try {
+                    config = JSON.parse(saved);
+                } catch(e) {
+                    console.error('配置加载失败', e);
+                }
+            }
+            renderAll();
+        }
+        
+        // 保存配置
+        function saveConfig() {
+            localStorage.setItem('classConfig', JSON.stringify(config));
+        }
+        
+        // 设置导航
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+            const titles = {
+                'students': '👥 学生列表',
+                'reward': '📝 加减分操作',
+                'logs': '📋 操作日志'
+            };
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.dataset.page;
+                    
+                    navItems.forEach(n => n.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    pages.forEach(p => p.classList.remove('active'));
+                    document.getElementById(page + '-page').classList.add('active');
+                    
+                    document.getElementById('page-title').textContent = titles[page] || page;
+                    
+                    if (page === 'reward') refreshRewardPage();
+                    if (page === 'logs') renderLogs();
+                });
+            });
+        }
+        
+        // 更新时间
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('current-time').textContent = timeStr;
+        }
+        
+        // 渲染所有
+        function renderAll() {
+            renderStudents();
+            renderRewardActions();
+            renderStudentSelect();
+        }
+        
+        // 渲染学生列表
+        function renderStudents() {
+            const tbody = document.getElementById('students-table-body');
+            
+            if (config.students.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><div class="icon">📭</div><p>暂无学生</p></td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = config.students.map(s => `
+                <tr>
+                    <td>${s.id}</td>
+                    <td>${s.name} ${s.is_admin ? '<span style="color: #f39c12; font-size: 11px;">[管理员]</span>' : ''}</td>
+                    <td>${s.student_id || '-'}</td>
+                    <td style="font-weight: bold; color: ${s.score > 0 ? '#27ae60' : s.score < 0 ? '#e74c3c' : '#333'}">${s.score}</td>
+                    <td style="color: #27ae60">${s.positive_count}</td>
+                    <td style="color: #e74c3c">${s.negative_count}</td>
+                    <td>
+                        <button class="btn btn-success action-btn" onclick="quickAdd(${s.id}, 1, '快速+1')">+1</button>
+                        <button class="btn btn-danger action-btn" onclick="quickAdd(${s.id}, -1, '快速-1')">-1</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // 快速加分
+        function quickAdd(studentId, points, reason) {
+            applyAction(points, reason, studentId);
+        }
+        
+        // 渲染奖惩操作
+        function renderRewardActions() {
+            const rewardContainer = document.getElementById('reward-actions');
+            const punishContainer = document.getElementById('punish-actions');
+            
+            rewardContainer.innerHTML = config.quick_actions.rewards.map(action => `
+                <button class="quick-btn reward" onclick="applyAction(${action.points}, '${action.reason}')">
+                    ${action.text}
+                </button>
+            `).join('');
+            
+            punishContainer.innerHTML = config.quick_actions.punishments.map(action => `
+                <button class="quick-btn punish" onclick="applyAction(${action.points}, '${action.reason}')">
+                    ${action.text}
+                </button>
+            `).join('');
+        }
+        
+        // 渲染学生选择器
+        function renderStudentSelect() {
+            const select = document.getElementById('student-select');
+            select.innerHTML = '<option value="">-- 请选择学生 --</option>' +
+                config.students.map(s => `<option value="${s.id}">${s.name} (${s.student_id || '无学号'})</option>`).join('');
+            
+            select.onchange = function() {
+                selectedStudentId = this.value ? parseInt(this.value) : null;
+                const display = document.getElementById('selected-student-display');
+                if (selectedStudentId) {
+                    const student = config.students.find(s => s.id === selectedStudentId);
+                    if (student) {
+                        display.innerHTML = `
+                            <label>👤 当前选中：</label>
+                            <select id="student-select">
+                                <option value="">-- 请选择学生 --</option>
+                                ${config.students.map(s => `<option value="${s.id}" ${s.id === student.id ? 'selected' : ''}>${s.name} (${s.student_id || '无学号'})</option>`).join('')}
+                            </select>
+                        `;
+                        document.getElementById('student-select').onchange = function() {
+                            selectedStudentId = this.value ? parseInt(this.value) : null;
+                        };
+                    }
+                } else {
+                    display.innerHTML = `
+                        <label>👤 当前选中：</label>
+                        <select id="student-select">
+                            <option value="">-- 请选择学生 --</option>
+                            ${config.students.map(s => `<option value="${s.id}">${s.name} (${s.student_id || '无学号'})</option>`).join('')}
+                        </select>
+                    `;
+                    document.getElementById('student-select').onchange = function() {
+                        selectedStudentId = this.value ? parseInt(this.value) : null;
+                    };
+                }
+            };
+        }
+        
+        // 刷新奖惩页面
+        function refreshRewardPage() {
+            renderStudentSelect();
+        }
+        
+        // 应用操作
+        function applyAction(points, reason, forceStudentId = null) {
+            const studentId = forceStudentId || selectedStudentId;
+            
+            if (!studentId) {
+                showToast('请先选择学生！', 'error');
+                return;
+            }
+            
+            const student = config.students.find(s => s.id === studentId);
+            if (!student) return;
+            
+            student.score += points;
+            if (points > 0) {
+                student.positive_count++;
+            } else {
+                student.negative_count++;
+            }
+            
+            // 添加日志
+            const log = {
+                id: Date.now(),
+                student_id: student.id,
+                student_name: student.name,
+                points: points,
+                reason: reason,
+                operator: currentUser.username,
+                timestamp: new Date().toISOString()
+            };
+            config.logs.unshift(log);
+            
+            saveConfig();
+            renderAll();
+            showToast(`${student.name} ${points > 0 ? '+' : ''}${points}分 - ${reason}`);
+        }
+        
+        // 渲染日志
+        function renderLogs() {
+            const container = document.getElementById('logs-container');
+            
+            if (config.logs.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>暂无操作记录</p></div>';
+                return;
+            }
+            
+            container.innerHTML = config.logs.slice(0, 50).map(log => {
+                const time = new Date(log.timestamp).toLocaleString('zh-CN');
+                return `
+                    <div class="log-item">
+                        <span class="log-time">${time}</span>
+                        <span class="log-student">${log.student_name}</span>
+                        <span class="log-reason">${log.reason}</span>
+                        <span class="log-points ${log.points > 0 ? 'positive' : 'negative'}">${log.points > 0 ? '+' : ''}${log.points}</span>
+                        <span style="color: #95a5a6; font-size: 11px;">${log.operator || '系统'}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 显示提示
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教师管理后台 - 登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 420px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .login-header .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .login-header h1 {
+            font-size: 26px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .login-header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 5px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .hint-text {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background: #f0f4f8;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .hint-text strong {
+            color: #2a5298;
+        }
+        
+        .error-msg {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .error-msg.show {
+            display: block;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link a:hover {
+            color: #2a5298;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="icon">🔐</div>
+            <h1>教师管理后台</h1>
+            <p>仅供教师使用，请妥善保管账号</p>
+        </div>
+        
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>教师用户名</label>
+                <input type="text" id="login-username" placeholder="请输入教师用户名" required>
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="login-password" placeholder="请输入密码" required>
+                <div class="error-msg" id="login-error"></div>
+            </div>
+            <button type="submit" class="login-btn">🔓 登录管理后台</button>
+        </form>
+        
+        <div class="hint-text">
+            <strong>默认教师账号：</strong><br>
+            用户名: <code>teacher</code> | 密码: <code>teacher123</code><br>
+            <span style="color: #e74c3c; font-size: 12px;">请务必登录后修改密码！</span>
+        </div>
+        
+        <div class="back-link">
+            <a href="login.html">← 返回学生登录页面</a>
+        </div>
+    </div>
+    
+    <script>
+        // 初始化教师账号数据
+        function initTeachers() {
+            let teachers = localStorage.getItem('classTeachers');
+            if (!teachers) {
+                // 创建默认教师账号
+                teachers = [
+                    { username: 'teacher', password: 'teacher123', role: 'teacher', created: new Date().toISOString() }
+                ];
+                localStorage.setItem('classTeachers', JSON.stringify(teachers));
+            }
+            return JSON.parse(teachers);
+        }
+        
+        // 保存教师数据
+        function saveTeachers(teachers) {
+            localStorage.setItem('classTeachers', JSON.stringify(teachers));
+        }
+        
+        // 处理登录
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorEl = document.getElementById('login-error');
+            
+            const teachers = initTeachers();
+            const teacher = teachers.find(t => t.username === username && t.password === password);
+            
+            if (teacher) {
+                // 登录成功
+                localStorage.setItem('currentUser', JSON.stringify(teacher));
+                window.location.href = 'admin.html';
+            } else {
+                // 登录失败
+                errorEl.textContent = '用户名或密码错误';
+                errorEl.classList.add('show');
+                
+                setTimeout(() => {
+                    errorEl.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        // 页面加载时检查是否已登录
+        window.onload = function() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                const teachers = initTeachers();
+                const validUser = teachers.find(t => t.username === user.username);
+                
+                if (validUser) {
+                    window.location.href = 'admin.html';
+                }
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧班级管理系统 - 学生登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 420px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .login-header h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .tab-switch {
+            display: flex;
+            margin-bottom: 30px;
+            background: #f5f7fa;
+            border-radius: 10px;
+            padding: 5px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #7f8c8d;
+        }
+        
+        .tab-btn.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .hint-text {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        .hint-text strong {
+            color: #667eea;
+        }
+        
+        .form-panel {
+            display: none;
+        }
+        
+        .form-panel.active {
+            display: block;
+        }
+        
+        .error-msg {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error-msg.show {
+            display: block;
+        }
+        
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .role-badge.teacher {
+            background: #e8f5e9;
+            color: #27ae60;
+        }
+        
+        .role-badge.student {
+            background: #e3f2fd;
+            color: #2196f3;
+        }
+        
+        .admin-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .admin-link a {
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .admin-link a:hover {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="icon">📚</div>
+            <h1>智慧班级管理系统</h1>
+            <p>学生端 - 查看成绩与奖惩记录</p>
+        </div>
+        
+        <div class="tab-switch">
+            <button class="tab-btn active" onclick="switchTab('login')">登录</button>
+            <button class="tab-btn" onclick="switchTab('register')">注册</button>
+        </div>
+        
+        <!-- 登录表单 -->
+        <div id="login-panel" class="form-panel active">
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>用户名（学生姓名）</label>
+                    <input type="text" id="login-username" placeholder="请输入学生姓名" required>
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="login-password" placeholder="请输入密码" required>
+                    <div class="error-msg" id="login-error"></div>
+                </div>
+                <button type="submit" class="login-btn">🔐 学生登录</button>
+            </form>
+            
+            <div class="hint-text">
+                还没有账号？请先注册<br>
+                <strong>提示：</strong>用户名请输入学生姓名（1-5位），密码自设
+            </div>
+        </div>
+        
+        <!-- 注册表单 -->
+        <div id="register-panel" class="form-panel">
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>学生姓名 *</label>
+                    <input type="text" id="reg-username" placeholder="请输入学生姓名（1-5位）" maxlength="5" required>
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="reg-password" placeholder="请输入密码（6-20位）" required>
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="reg-confirm" placeholder="请再次输入密码" required>
+                </div>
+                <div class="form-group">
+                    <label>角色</label>
+                    <input type="text" id="reg-role" value="学生" readonly style="background: #f5f7fa;">
+                </div>
+                <button type="submit" class="login-btn">✅ 注册账号</button>
+            </form>
+            
+            <div class="hint-text">
+                注册成功后可使用该账号登录<br>
+                <strong>提示：</strong>学生账号只能查看自己的数据和基础操作
+            </div>
+        </div>
+        
+        <div class="admin-link">
+            <a href="teacher-login.html">🔐 教师管理后台登录</a>
+        </div>
+    </div>
+    
+    <script>
+        // 初始化学生账号数据
+        function initUsers() {
+            let users = localStorage.getItem('classUsers');
+            if (!users) {
+                users = [];
+                localStorage.setItem('classUsers', JSON.stringify(users));
+            }
+            return JSON.parse(users);
+        }
+        
+        // 保存学生账号数据
+        function saveUsers(users) {
+            localStorage.setItem('classUsers', JSON.stringify(users));
+        }
+        
+        // 切换标签页
+        function switchTab(tab) {
+            const panels = document.querySelectorAll('.form-panel');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            panels.forEach(p => p.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.getElementById('login-panel').classList.add('active');
+                btns[0].classList.add('active');
+            } else {
+                document.getElementById('register-panel').classList.add('active');
+                btns[1].classList.add('active');
+            }
+        }
+        
+        // 处理登录
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorEl = document.getElementById('login-error');
+            
+            const users = initUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // 登录成功
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // 检查是否有管理员权限
+                const saved = localStorage.getItem('classConfig');
+                if (saved) {
+                    try {
+                        const config = JSON.parse(saved);
+                        const student = config.students.find(s => s.name === user.username);
+                        if (student && student.is_admin) {
+                            localStorage.setItem('isStudentAdmin', 'true');
+                            window.location.href = 'student-admin.html';
+                        } else {
+                            localStorage.setItem('isStudentAdmin', 'false');
+                            window.location.href = 'index.html';
+                        }
+                    } catch(e) {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } else {
+                // 登录失败
+                errorEl.textContent = '用户名或密码错误';
+                errorEl.classList.add('show');
+                
+                setTimeout(() => {
+                    errorEl.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        // 处理注册
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('reg-username').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+            
+            // 验证
+            if (username.length < 1 || username.length > 5) {
+                alert('用户名长度应为1-5个字符');
+                return;
+            }
+            
+            if (password.length < 6 || password.length > 20) {
+                alert('密码长度应为6-20个字符');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('两次输入的密码不一致');
+                return;
+            }
+            
+            const users = initUsers();
+            
+            // 检查用户名是否已存在
+            if (users.find(u => u.username === username)) {
+                alert('该用户名已被注册');
+                return;
+            }
+            
+            // 检查特殊用户名
+            if (['teacher', 'admin', 'root', 'system'].includes(username.toLowerCase())) {
+                alert('该用户名已被保留，请使用其他用户名');
+                return;
+            }
+            
+            // 创建新用户
+            const newUser = {
+                username: username,
+                password: password,
+                role: 'student',
+                created: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            saveUsers(users);
+            
+            // 同时添加学生到班级名单
+            const saved = localStorage.getItem('classConfig');
+            let classConfig = saved ? JSON.parse(saved) : { class_name: "三年二班", students: [], logs: [], quick_actions: { rewards: [], punishments: [] } };
+            
+            // 检查是否已存在同名学生
+            const exists = classConfig.students.find(s => s.name === username);
+            if (!exists) {
+                const newId = classConfig.students.length > 0 ? Math.max(...classConfig.students.map(s => s.id)) + 1 : 1;
+                classConfig.students.push({
+                    id: newId,
+                    name: username,
+                    student_id: '',
+                    score: 0,
+                    positive_count: 0,
+                    negative_count: 0
+                });
+                localStorage.setItem('classConfig', JSON.stringify(classConfig));
+            }
+            
+            alert('注册成功！请使用新账号登录');
+            switchTab('login');
+            
+            // 清空表单
+            document.getElementById('reg-username').value = '';
+            document.getElementById('reg-password').value = '';
+            document.getElementById('reg-confirm').value = '';
+        }
+        
+        // 页面加载时检查是否已登录
+        window.onload = function() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                const users = initUsers();
+                const validUser = users.find(u => u.username === user.username);
+                
+                if (validUser) {
+                    // 检查是否有管理员权限
+                    const saved = localStorage.getItem('classConfig');
+                    if (saved) {
+                        try {
+                            const config = JSON.parse(saved);
+                            const student = config.students.find(s => s.name === validUser.username);
+                            if (student && student.is_admin) {
+                                localStorage.setItem('isStudentAdmin', 'true');
+                                window.location.href = 'student-admin.html';
+                            } else {
+                                localStorage.setItem('isStudentAdmin', 'false');
+                                window.location.href = 'index.html';
+                            }
+                        } catch(e) {
+                            window.location.href = 'index.html';
+                        }
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+</html>

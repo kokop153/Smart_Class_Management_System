@@ -1,0 +1,488 @@
+{
+  "class_name": "初一7班",
+  "logs": [],
+  "quick_actions": {
+    "punishments": [
+      {
+        "points": -1,
+        "reason": "小失误",
+        "text": "-1 小失误"
+      },
+      {
+        "points": -2,
+        "reason": "未交作业",
+        "text": "-2 未交作业"
+      },
+      {
+        "points": -3,
+        "reason": "课堂违纪",
+        "text": "-3 课堂违纪"
+      }
+    ],
+    "rewards": [
+      {
+        "points": 1,
+        "reason": "表现良好",
+        "text": "+1 表现良好"
+      },
+      {
+        "points": 2,
+        "reason": "积极发言",
+        "text": "+2 积极发言"
+      },
+      {
+        "points": 3,
+        "reason": "作业优秀",
+        "text": "+3 作业优秀"
+      },
+      {
+        "points": 5,
+        "reason": "重大贡献",
+        "text": "+5 重大贡献"
+      }
+    ]
+  },
+  "students": [
+    {
+      "id": 1,
+      "is_admin": false,
+      "name": "潘奕萌",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 2,
+      "is_admin": false,
+      "name": "林承希",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 3,
+      "is_admin": false,
+      "name": "张浩轩",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 4,
+      "is_admin": false,
+      "name": "石徐骏",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 5,
+      "is_admin": false,
+      "name": "李瑾萱",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 6,
+      "is_admin": false,
+      "name": "陈琰",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 7,
+      "is_admin": false,
+      "name": "吴锶乐",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 8,
+      "is_admin": false,
+      "name": "苏哲靖",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 9,
+      "is_admin": false,
+      "name": "曾俊哲",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 10,
+      "is_admin": false,
+      "name": "李嘉翔",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 11,
+      "is_admin": false,
+      "name": "许梓轩",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 12,
+      "is_admin": false,
+      "name": "罗心怡",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 13,
+      "is_admin": false,
+      "name": "罗思涵",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 14,
+      "is_admin": false,
+      "name": "杨辰兮",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 15,
+      "is_admin": false,
+      "name": "刘鸿凌",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 16,
+      "is_admin": false,
+      "name": "陈羽菲",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 17,
+      "is_admin": false,
+      "name": "张煜晨",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 18,
+      "is_admin": false,
+      "name": "管芯语",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 19,
+      "is_admin": false,
+      "name": "梁皓然",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 20,
+      "is_admin": false,
+      "name": "林德玺",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 21,
+      "is_admin": false,
+      "name": "马佳慧",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 22,
+      "is_admin": false,
+      "name": "王宏睿",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 23,
+      "is_admin": false,
+      "name": "纪昊宇",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 24,
+      "is_admin": false,
+      "name": "邓渤轩",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 25,
+      "is_admin": false,
+      "name": "王诗琪",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 26,
+      "is_admin": false,
+      "name": "刘作齐",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 27,
+      "is_admin": false,
+      "name": "姜楚涵",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 28,
+      "is_admin": false,
+      "name": "吴紫萱",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 29,
+      "is_admin": false,
+      "name": "陈梵宇",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 30,
+      "is_admin": false,
+      "name": "钟堂烨",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 31,
+      "is_admin": false,
+      "name": "郭腾宇",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 32,
+      "is_admin": false,
+      "name": "陈艺莹",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 33,
+      "is_admin": false,
+      "name": "杨祺文",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 34,
+      "is_admin": false,
+      "name": "张子扬",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 35,
+      "is_admin": false,
+      "name": "刘梦涵",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 36,
+      "is_admin": false,
+      "name": "李辉华",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 37,
+      "is_admin": false,
+      "name": "邓璇",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 38,
+      "is_admin": false,
+      "name": "陈宣润",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 39,
+      "is_admin": false,
+      "name": "陈彧萱",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 40,
+      "is_admin": false,
+      "name": "邱海群",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 41,
+      "is_admin": false,
+      "name": "王思远",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 42,
+      "is_admin": false,
+      "name": "黄文菁",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 43,
+      "is_admin": false,
+      "name": "陈雨欣",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 44,
+      "is_admin": false,
+      "name": "管子郗",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 45,
+      "is_admin": false,
+      "name": "吴金屿",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 46,
+      "is_admin": false,
+      "name": "陈恩齐",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 47,
+      "is_admin": false,
+      "name": "罗杰",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 48,
+      "is_admin": false,
+      "name": "涂治平",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    },
+    {
+      "id": 49,
+      "is_admin": false,
+      "name": "胡存兴",
+      "negative_count": 0,
+      "positive_count": 0,
+      "score": 0,
+      "student_id": ""
+    }
+  ]
+}
